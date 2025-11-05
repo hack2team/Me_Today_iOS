@@ -4,7 +4,11 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>WantedSans-Regular.otf</string>
+		<string>WantedSans-Bold.otf</string>
+		<string>PyeongChang-Bold.otf</string>
 		<string>Pretendard-Bold.otf</string>
+		<string>Gangwon-ExtraBold.otf</string>
 		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Medium.otf</string>
 	</array>
