@@ -5,7 +5,7 @@ struct StartView: View {
         NavigationStack {
             ZStack {
                 Image("background")
-                VStack {
+                VStack (spacing: 85){
                     Image("logoText")
                     VStack(spacing: 0) {
                         Image("onboardingBear")
