@@ -19,7 +19,10 @@ struct TabbarView: View {
         ZStack {
             VStack(spacing: 0) {
                 contentView(for: selectedTab)
-                    .environment(\.isTabBarHidden, $isTabbarHidden);                Spacer(minLength: 0)
+                    .environment(\.isTabBarHidden, $isTabbarHidden)
+                
+                Spacer(minLength: 0)
+                
                 if !isTabbarHidden {
                     customTabbar
                 }
@@ -47,7 +50,7 @@ struct TabbarView: View {
     private func contentView(for tab: Int) -> some View {
         switch tab {
         case 0:
-            MainView()
+            MainView(selectedTab: $selectedTab)
         case 1:
             ReportView()
         case 2:
