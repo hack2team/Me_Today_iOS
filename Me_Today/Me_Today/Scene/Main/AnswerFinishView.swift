@@ -15,7 +15,6 @@ struct AnswerFinishView: View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
-                    // 상단 완료 메시지
                     VStack(spacing: 12) {
                         Text("오늘의 답변을 완료 하셨어요!")
                             .font(.pyeongChang(.bold, size: 24))
@@ -26,15 +25,13 @@ struct AnswerFinishView: View {
                             .foregroundColor(.black)
                     }
                     .padding(.top, 40)
-                    
-                    // 곰돌이 이미지
+
                     Image("onboardingBear")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 260, height: 260)
                         .offset(y: -30)
-                    
-                    // 리포트, 기록 보기 버튼
+
                     HStack(spacing: 12) {
                         Button(action: {
                             selectedTab = 1
@@ -76,8 +73,7 @@ struct AnswerFinishView: View {
                     
                     Spacer()
                         .frame(height: 40)
-                    
-                    // 질문 카드
+
                     VStack(spacing: 8) {
                         Text("Q\(questionNumber). \(question)")
                             .font(.wantedSans(.regular, size: 14))
