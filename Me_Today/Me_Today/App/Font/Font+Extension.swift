@@ -7,10 +7,11 @@ enum PretendardFont: String {
 }
 enum WantedSansFont: String {
     case bold = "WantedSans-Bold"
+    case semibold = "WantedSans-SemiBold"
     case regular = "WantedSans-Regular"
 }
 enum GangwonFont: String {
-    case extraBold = "Gangwon-ExtraBold"
+    case extrabold = "Power"
 }
 enum PyeongChangFont: String {
     case bold = "PyeongChang-Bold"
