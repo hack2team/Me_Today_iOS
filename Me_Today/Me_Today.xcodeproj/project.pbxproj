@@ -29,22 +29,9 @@
 		8896C1E42EBB98340010737D /* Me_TodayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Me_TodayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8896C20B2EBBAC1A0010737D /* Exceptions for "Me_Today" folder in "Me_Today" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Me-Today-Info.plist",
-			);
-			target = 8896C1CC2EBB98320010737D /* Me_Today */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8896C1CF2EBB98320010737D /* Me_Today */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				8896C20B2EBBAC1A0010737D /* Exceptions for "Me_Today" folder in "Me_Today" target */,
-			);
 			path = Me_Today;
 			sourceTree = "<group>";
 		};
