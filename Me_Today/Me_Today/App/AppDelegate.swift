@@ -44,7 +44,7 @@ struct YourApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationView {
-          TabbarView()
+          StartView()
       }
     }
   }

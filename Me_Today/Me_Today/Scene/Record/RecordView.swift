@@ -8,8 +8,10 @@ struct RecordView: View {
     @State private var answers: [AnswerListResponse.Item] = []
     @State private var answeredDates: Set<Date> = []
     @State private var selectedAnswers: [AnswerListResponse.Item] = []
+    @State private var selectedQuestionTitle: String = "질문"
     
     private let provider = MoyaProvider<AnswerAPI>(plugins: [MoyaLoggingPlugin()])
+    private let questionProvider = MoyaProvider<QuestionAPI>(plugins: [MoyaLoggingPlugin()])
     
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
@@ -60,10 +62,10 @@ struct RecordView: View {
                             isSelected: selectedDate == date
                         )
                         .onTapGesture {
-                            let day = Calendar.current.component(.day, from: date)
                             if answeredDates.contains(Calendar.current.startOfDay(for: date)) {
                                 selectedDate = date
                                 selectedAnswers = getAnswersForDate(date)
+                                loadQuestionTitle(for: date)
                                 showRecordSheet = true
                             }
                         }
@@ -85,13 +87,16 @@ struct RecordView: View {
         }
         .sheet(isPresented: $showRecordSheet) {
             if let date = selectedDate {
-                RecordDetailSheet(date: date, answers: selectedAnswers)
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
+                RecordDetailSheet(
+                    date: date,
+                    answers: selectedAnswers,
+                    questionTitle: selectedQuestionTitle
+                )
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
             }
         }
     }
-    
     
     var monthYearString: String {
         let formatter = DateFormatter()
@@ -146,6 +151,40 @@ struct RecordView: View {
                 }
             case .failure(let error):
                 print("❌ API 호출 실패: \(error)")
+            }
+        }
+    }
+    
+    func loadQuestionTitle(for date: Date) {
+        // 해당 날짜의 첫 번째 답변에서 questionId 가져오기
+        let answersForDate = getAnswersForDate(date)
+        guard let firstAnswer = answersForDate.first else {
+            selectedQuestionTitle = "질문"
+            return
+        }
+        
+        let questionId = firstAnswer.questionId
+        
+        questionProvider.request(.questionTitle(id: questionId)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let data = try JSONDecoder().decode(QuestionResponse.self, from: response.data)
+                    DispatchQueue.main.async {
+                        self.selectedQuestionTitle = data.data.content
+                        print("✅ 질문 제목 로드 완료: \(data.data.content)")
+                    }
+                } catch {
+                    print("❌ 질문 제목 디코딩 실패: \(error)")
+                    DispatchQueue.main.async {
+                        self.selectedQuestionTitle = "질문"
+                    }
+                }
+            case .failure(let error):
+                print("❌ 질문 제목 API 호출 실패: \(error)")
+                DispatchQueue.main.async {
+                    self.selectedQuestionTitle = "질문"
+                }
             }
         }
     }

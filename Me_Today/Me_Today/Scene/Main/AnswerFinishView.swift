@@ -76,6 +76,8 @@ struct AnswerFinishView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 46)
                 Text("*질문은 12시에 리셋됩니다.")
+                    .foregroundStyle(.gray100)
+                    .padding(.top, 8)
             }
             .scrollIndicators(.hidden)
             .ignoresSafeArea(edges: .bottom)

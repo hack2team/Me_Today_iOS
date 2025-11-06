@@ -4,6 +4,7 @@ internal import Alamofire
 
 enum QuestionAPI {
     case todayQuestion(userId: String)
+    case questionTitle(id: Int)
 }
 
 extension QuestionAPI: TargetType {
@@ -15,12 +16,14 @@ extension QuestionAPI: TargetType {
         switch self {
         case .todayQuestion:
             return "/questions/today"
+        case let .questionTitle(id):
+            return "/questions/\(id)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .todayQuestion:
+        case .todayQuestion, .questionTitle:
             return .get
         }
     }
@@ -32,6 +35,8 @@ extension QuestionAPI: TargetType {
                 parameters: ["userId": userId],
                 encoding: URLEncoding.default
             )
+        case .questionTitle:
+            return .requestPlain
         }
     }
     

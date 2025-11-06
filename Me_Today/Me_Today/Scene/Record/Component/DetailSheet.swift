@@ -30,17 +30,28 @@ struct RecordDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
     let date: Date
     let answers: [AnswerListResponse.Item]
-
-    var dateString: String {
+    @State var questionTitle = "질문"
+    
+    func formatAnswerDate(_ dateString: String) -> String {
+        let formats = ["yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm"]
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "yyyy년 M월 d일"
-        return formatter.string(from: date)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone.current
+        
+        for format in formats {
+            formatter.dateFormat = format
+            if let date = formatter.date(from: dateString) {
+                formatter.locale = Locale(identifier: "ko_KR")
+                formatter.dateFormat = "yyyy년 M월 d일 HH:mm"
+                return formatter.string(from: date)
+            }
+        }
+        return dateString
     }
-
+    
     var body: some View {
         VStack(spacing: 0) {
-            Text("질문 답변 기록")
+            Text(questionTitle)
                 .font(.pretendard(.bold, size: 20))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
@@ -59,7 +70,7 @@ struct RecordDetailSheet: View {
                         ForEach(answers.indices, id: \.self) { index in
                             VStack(alignment: .leading, spacing: 12) {
                                 HStack {
-                                    Text("\(dateString)")
+                                    Text(formatAnswerDate(answers[index].createdAt))
                                         .font(.pretendard(.semibold, size: 14))
                                         .foregroundColor(.black)
                                     
@@ -86,13 +97,14 @@ struct RecordDetailSheet: View {
                     .padding(.bottom, 20)
                 }
             }
-
+            
             Spacer()
             
             TodayButton(action: {
                 dismiss()
             }, label: "닫기")
             .padding(.bottom, 20)
+            
         }
         .background(Color.white)
     }
