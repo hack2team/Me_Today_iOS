@@ -60,7 +60,3 @@ struct PeriodSettingView: View {
         }
     }
 }
-
-#Preview {
-    PeriodSettingView()
-}

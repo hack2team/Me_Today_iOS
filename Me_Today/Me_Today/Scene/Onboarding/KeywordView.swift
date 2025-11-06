@@ -3,6 +3,7 @@ import SwiftUI
 struct KeywordView: View {
     let selectedPeriod: String
     @State private var selectedKeyword: String = ""
+    @State private var navigateToTabbar = false
 
     var body: some View {
         NavigationStack {
@@ -13,7 +14,7 @@ struct KeywordView: View {
                             .font(.pretendard(.bold, size: 20))
                             .padding(.leading, 30)
                         RadioButtonGroup(
-                            options: ["꾸준히 성장하는 사람", "일에서 성장하고 싶은 사람", "좋은 사람, 좋은 관계를 만들고 싶은 사람", "진짜 나를 알고 싶은 사람"],
+                            options: ["도전형", "자율형", "관계형", "탐구형"],
                             selectedOption: $selectedKeyword
                         )
                         .padding(.horizontal, 30)
@@ -28,10 +29,18 @@ struct KeywordView: View {
                     .padding(.bottom, 70)
                 }
             }
+            .fullScreenCover(isPresented: $navigateToTabbar) {
+                TabbarView()
+            }
         }
     }
 
     func setting(period: String, keyword: String) {
         // API 로직 작성
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation {
+                navigateToTabbar = true
+            }
+        }
     }
 }
