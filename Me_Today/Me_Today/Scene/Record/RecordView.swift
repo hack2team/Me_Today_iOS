@@ -6,7 +6,7 @@ struct RecordView: View {
     @State private var selectedDate: Date?
     @State private var showRecordSheet = false
     @State private var answers: [AnswerListResponse.Item] = []
-    @State private var answeredDates: Set<Int> = []
+    @State private var answeredDates: Set<Date> = []
     @State private var selectedAnswers: [AnswerListResponse.Item] = []
     
     private let provider = MoyaProvider<AnswerAPI>(plugins: [MoyaLoggingPlugin()])
@@ -56,12 +56,12 @@ struct RecordView: View {
                     if let date = date {
                         DayCell(
                             date: date,
-                            isAnswered: answeredDates.contains(Calendar.current.component(.day, from: date)),
+                            isAnswered: answeredDates.contains(Calendar.current.startOfDay(for: date)),
                             isSelected: selectedDate == date
                         )
                         .onTapGesture {
                             let day = Calendar.current.component(.day, from: date)
-                            if answeredDates.contains(day) {
+                            if answeredDates.contains(Calendar.current.startOfDay(for: date)) {
                                 selectedDate = date
                                 selectedAnswers = getAnswersForDate(date)
                                 showRecordSheet = true
@@ -91,6 +91,7 @@ struct RecordView: View {
             }
         }
     }
+    
     
     var monthYearString: String {
         let formatter = DateFormatter()
@@ -149,52 +150,63 @@ struct RecordView: View {
         }
     }
     
+    func parseDate(_ dateString: String) -> Date? {
+        let formats = ["yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm"]
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone.current
+        for format in formats {
+            formatter.dateFormat = format
+            if let date = formatter.date(from: dateString) {
+                return date
+            }
+        }
+        return nil
+    }
+
     func updateAnsweredDates() {
-        // "2025-11-06T06:28:16" 형식을 파싱할 수 있는 DateFormatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone.current
-        
-        var dates = Set<Int>()
-        
+        var dates = Set<Date>()
         let calendar = Calendar.current
-        let currentYear = calendar.component(.year, from: currentMonth)
-        let currentMonthNumber = calendar.component(.month, from: currentMonth)
         
+        let currentYear = calendar.component(.year, from: currentMonth)
+        let currentMonthComponent = calendar.component(.month, from: currentMonth)
+
         for answer in answers {
-            if let date = dateFormatter.date(from: answer.createdAt) {
-                let answerYear = calendar.component(.year, from: date)
+            if let date = parseDate(answer.createdAt) {
                 let answerMonth = calendar.component(.month, from: date)
                 let answerDay = calendar.component(.day, from: date)
                 
-                print("📅 파싱된 날짜: \(answerYear)-\(answerMonth)-\(answerDay)")
-                
-                // 현재 표시 중인 월과 같은지 확인
-                if answerYear == currentYear && answerMonth == currentMonthNumber {
-                    dates.insert(answerDay)
-                    print("✅ 날짜 추가: \(answerDay)일")
+                if answerMonth == currentMonthComponent {
+                    var components = DateComponents()
+                    components.year = currentYear
+                    components.month = answerMonth
+                    components.day = answerDay
+                    
+                    if let normalizedDate = calendar.date(from: components) {
+                        let startOfDay = calendar.startOfDay(for: normalizedDate)
+                        dates.insert(startOfDay)
+                        print("✅ 저장된 날짜:", startOfDay, "원본:", answer.createdAt)
+                    }
                 }
             } else {
-                print("❌ 날짜 파싱 실패: \(answer.createdAt)")
+                print("❌ 날짜 파싱 실패:", answer.createdAt)
             }
         }
-        
+
         answeredDates = dates
-        print("📊 답변 있는 날짜들: \(answeredDates.sorted())")
+        print("📅 answeredDates:", answeredDates)
     }
     
     func getAnswersForDate(_ date: Date) -> [AnswerListResponse.Item] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone.current
-        
         let calendar = Calendar.current
+        let selectedMonth = calendar.component(.month, from: date)
+        let selectedDay = calendar.component(.day, from: date)
         
         return answers.filter { answer in
-            if let answerDate = dateFormatter.date(from: answer.createdAt) {
-                return calendar.isDate(answerDate, inSameDayAs: date)
+            if let answerDate = parseDate(answer.createdAt) {
+                let answerMonth = calendar.component(.month, from: answerDate)
+                let answerDay = calendar.component(.day, from: answerDate)
+                return answerMonth == selectedMonth && answerDay == selectedDay
             }
             return false
         }

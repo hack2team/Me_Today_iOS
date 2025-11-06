@@ -6,7 +6,7 @@ struct UserSendResponse: Codable {
 }
 
 struct UserData: Codable {
-    let userId: Int
+    let userId = 1
     let name: String
     let age: Int
     let email: String

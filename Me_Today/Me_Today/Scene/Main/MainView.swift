@@ -120,7 +120,7 @@ struct MainView: View {
                         
                         if let questionData = data.data.question {
                             self.question = questionData.content
-                            self.questionNumber = String((data.data.answeredCount ?? 0) + 1).padLeft(totalWidth: 2)
+                            self.questionNumber = String(data.data.question?.questionId ?? 144)
                             self.questionId = questionData.questionId
                         } else {
                             print("⚠️ 질문이 없습니다.")

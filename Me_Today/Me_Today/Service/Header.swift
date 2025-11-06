@@ -43,7 +43,7 @@ struct Token {
     static func removeToken() {
         accessToken = nil
         refreshToken = nil
-        userID = nil
+        userID = "1"
     }
 }
 
