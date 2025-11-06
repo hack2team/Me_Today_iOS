@@ -30,7 +30,7 @@ extension UserAPI: TargetType {
         case let .userSend(_, _, _, _, planDurationMonths, idealPersonDescription):
             return .requestParameters(
                 parameters: [
-                    "name": "이름",
+                    "name": "이름1",
                     "age": 18,
                     "email": "이메일",
                     "password": "비밀번호",

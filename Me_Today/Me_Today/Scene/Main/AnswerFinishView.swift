@@ -2,7 +2,6 @@ import SwiftUI
 
 struct AnswerFinishView: View {
     @Binding public var selectedTab: Int
-    @State private var timer = "00:53:40"
     private var questionNumber = "01"
     private var question = "오늘 나의 에너지 수준은 어떠했나요?"
     private var answer = "답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용"
@@ -15,14 +14,11 @@ struct AnswerFinishView: View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
+
                     VStack(spacing: 12) {
                         Text("오늘의 답변을 완료 하셨어요!")
                             .font(.pyeongChang(.bold, size: 24))
                             .foregroundColor(.blue100)
-                        
-                        Text(timer)
-                            .font(.wantedSans(.regular, size: 14))
-                            .foregroundColor(.black)
                     }
                     .padding(.top, 40)
 
