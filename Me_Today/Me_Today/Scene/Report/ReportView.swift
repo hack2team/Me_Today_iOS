@@ -68,10 +68,10 @@ struct ReportView: View {
                 case .success(let response):
                     do {
                         let decoded = try JSONDecoder().decode(AnalysisResponse.self, from: response.data)
-                        self.strengths = decoded.data.strengths
-                        self.weaknesses = decoded.data.weaknesses
-                        self.improvementSuggestions = decoded.data.improvementSuggestions
-                        self.relationshipMap = decoded.data.relationshipMap
+                        self.strengths = decoded.data?.strengths ?? "아직 충분한 데이터가 모이지 않았습니다"
+                        self.weaknesses = decoded.data?.weaknesses ?? "아직 충분한 데이터가 모이지 않았습니다"
+                        self.improvementSuggestions = decoded.data?.improvementSuggestions ?? "아직 충분한 데이터가 모이지 않았습니다"
+                        self.relationshipMap = decoded.data?.relationshipMap ?? ["":"아직 충분한 데이터가 모이지 않았습니다"]
                         self.navigateToAi = true
                     } catch {
                         print("❌ 디코딩 실패: \(error)")
