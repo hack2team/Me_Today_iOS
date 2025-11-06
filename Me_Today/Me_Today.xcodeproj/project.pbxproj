@@ -10,6 +10,9 @@
 		8896C2962EBC35970010737D /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2952EBC35970010737D /* CombineMoya */; };
 		8896C2982EBC35970010737D /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2972EBC35970010737D /* Moya */; };
 		8896C2A22EBC3BFB0010737D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2A12EBC3BFB0010737D /* Alamofire */; };
+		8896C2C92EBCB7400010737D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2C82EBCB7400010737D /* FirebaseAnalytics */; };
+		8896C2CB2EBCB7400010737D /* FirebaseAnalyticsIdentitySupport in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2CA2EBCB7400010737D /* FirebaseAnalyticsIdentitySupport */; };
+		8896C2D12EBCB85D0010737D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2D02EBCB85D0010737D /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +61,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8896C2D12EBCB85D0010737D /* FirebaseMessaging in Frameworks */,
 				8896C2A22EBC3BFB0010737D /* Alamofire in Frameworks */,
+				8896C2CB2EBCB7400010737D /* FirebaseAnalyticsIdentitySupport in Frameworks */,
 				8896C2982EBC35970010737D /* Moya in Frameworks */,
+				8896C2C92EBCB7400010737D /* FirebaseAnalytics in Frameworks */,
 				8896C2962EBC35970010737D /* CombineMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +93,7 @@
 				8896C1CF2EBB98320010737D /* Me_Today */,
 				8896C1DD2EBB98340010737D /* Me_TodayTests */,
 				8896C1E72EBB98340010737D /* Me_TodayUITests */,
+				8896C2CF2EBCB85D0010737D /* Frameworks */,
 				8896C1CE2EBB98320010737D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +106,13 @@
 				8896C1E42EBB98340010737D /* Me_TodayUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8896C2CF2EBCB85D0010737D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +138,9 @@
 				8896C2952EBC35970010737D /* CombineMoya */,
 				8896C2972EBC35970010737D /* Moya */,
 				8896C2A12EBC3BFB0010737D /* Alamofire */,
+				8896C2C82EBCB7400010737D /* FirebaseAnalytics */,
+				8896C2CA2EBCB7400010737D /* FirebaseAnalyticsIdentitySupport */,
+				8896C2D02EBCB85D0010737D /* FirebaseMessaging */,
 			);
 			productName = Me_Today;
 			productReference = 8896C1CD2EBB98320010737D /* Me_Today.app */;
@@ -210,6 +227,7 @@
 			packageReferences = (
 				8896C2942EBC35970010737D /* XCRemoteSwiftPackageReference "Moya" */,
 				8896C2A02EBC3BFB0010737D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				8896C2C72EBCB7400010737D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8896C1CE2EBB98320010737D /* Products */;
@@ -411,6 +429,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Me_Today/Me_Today.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
@@ -444,6 +463,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Me_Today/Me_Today.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z25H7B85Z8;
@@ -614,6 +634,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		8896C2C72EBCB7400010737D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -631,6 +659,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8896C2A02EBC3BFB0010737D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		8896C2C82EBCB7400010737D /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8896C2C72EBCB7400010737D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		8896C2CA2EBCB7400010737D /* FirebaseAnalyticsIdentitySupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8896C2C72EBCB7400010737D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsIdentitySupport;
+		};
+		8896C2D02EBCB85D0010737D /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8896C2C72EBCB7400010737D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
