@@ -8,11 +8,11 @@ struct ReportView: View {
     @State private var weaknesses: String = ""
     @State private var improvementSuggestions: String = ""
     @State private var relationshipMap: [String: String] = [:]
-    
-    // MoyaLoggingPlugin 적용
+
     private let provider = MoyaProvider<AnswerAPI>(plugins: [MoyaLoggingPlugin()])
 
     var body: some View {
+        NavigationBarView()
         NavigationView {
             VStack {
                 Image("reportIcon")
@@ -48,7 +48,6 @@ struct ReportView: View {
                 )
                 .hidden()
             }
-            .navigationTitle("리포트")
         }
     }
     

@@ -9,8 +9,8 @@ struct AnswerListResponse: Codable {
         let userId: Int
         let questionId: Int
         let content: String
-        let aiSummary: String
-        let aiKeywords: String
+        let aiSummary: String?
+        let aiKeywords: String?
         let createdAt: String
         let updatedAt: String
 

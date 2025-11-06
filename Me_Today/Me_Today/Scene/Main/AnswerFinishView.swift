@@ -69,22 +69,6 @@ struct AnswerFinishView: View {
                     
                     Spacer()
                         .frame(height: 40)
-
-                    VStack(spacing: 8) {
-                        Text("Q\(questionNumber). \(question)")
-                            .font(.wantedSans(.regular, size: 14))
-                            .foregroundColor(.black)
-                        
-                        Text(answer)
-                            .font(.wantedSans(.regular, size: 14))
-                            .foregroundColor(.gray100)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(20)
-                    .background(Color.white)
-                    .cornerRadius(16)
-                    .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 2)
-                    .padding(.horizontal, 20)
                     
                     Spacer()
                 }
