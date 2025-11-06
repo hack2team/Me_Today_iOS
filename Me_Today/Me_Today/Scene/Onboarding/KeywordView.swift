@@ -1,9 +1,12 @@
 import SwiftUI
+import Moya
+internal import Alamofire
 
 struct KeywordView: View {
     let selectedPeriod: String
     @State private var selectedKeyword: String = ""
     @State private var navigateToTabbar = false
+    @State private var errorMessage: String? = nil
 
     var body: some View {
         NavigationStack {
@@ -24,7 +27,18 @@ struct KeywordView: View {
                     Spacer()
 
                     TodayButton(action: {
-                        setting(period: selectedPeriod, keyword: selectedKeyword)
+                        let periodInMonths: Int = {
+                            if selectedPeriod.contains("년") {
+                                let numberString = selectedPeriod.replacingOccurrences(of: "년", with: "")
+                                return (Int(numberString) ?? 0) * 12
+                            } else if selectedPeriod.contains("개월") {
+                                let numberString = selectedPeriod.replacingOccurrences(of: "개월", with: "")
+                                return Int(numberString) ?? 0
+                            } else {
+                                return 0
+                            }
+                        }()
+                        setting(period: periodInMonths, keyword: selectedKeyword)
                     }, label: "다음")
                     .padding(.bottom, 70)
                 }
@@ -35,11 +49,36 @@ struct KeywordView: View {
         }
     }
 
-    func setting(period: String, keyword: String) {
-        // API 로직 작성
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation {
-                navigateToTabbar = true
+    func setting(period: Int, keyword: String) {
+        let provider = MoyaProvider<UserAPI>(plugins: [MoyaLoggingPlugin()])
+
+        provider.request(.userSend(
+            name: "",
+            age: 0,
+            email: "",
+            password: "",
+            planDurationMonths: period,
+            idealPersonDescription: keyword
+        )) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let data = try JSONDecoder().decode(UserSendResponse.self, from: response.data)
+                    if response.statusCode == 201 {
+                        Token.userID = "\(data.data.userId)"
+                        
+                        DispatchQueue.main.async {
+                            self.navigateToTabbar = true
+                        }
+                    } else {
+                        print("error - 상태 코드: \(response.statusCode)")
+                    }
+                } catch {
+                    print("JSON 파싱 실패: \(error)")
+                }
+
+            case let .failure(error):
+                print("호출 실패: \(error)")
             }
         }
     }

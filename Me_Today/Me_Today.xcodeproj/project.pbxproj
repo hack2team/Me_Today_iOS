@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8896C2962EBC35970010737D /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2952EBC35970010737D /* CombineMoya */; };
+		8896C2982EBC35970010737D /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2972EBC35970010737D /* Moya */; };
+		8896C2A22EBC3BFB0010737D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8896C2A12EBC3BFB0010737D /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		8896C1DB2EBB98340010737D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +58,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8896C2A22EBC3BFB0010737D /* Alamofire in Frameworks */,
+				8896C2982EBC35970010737D /* Moya in Frameworks */,
+				8896C2962EBC35970010737D /* CombineMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +121,9 @@
 			);
 			name = Me_Today;
 			packageProductDependencies = (
+				8896C2952EBC35970010737D /* CombineMoya */,
+				8896C2972EBC35970010737D /* Moya */,
+				8896C2A12EBC3BFB0010737D /* Alamofire */,
 			);
 			productName = Me_Today;
 			productReference = 8896C1CD2EBB98320010737D /* Me_Today.app */;
@@ -195,6 +207,10 @@
 			);
 			mainGroup = 8896C1C42EBB98320010737D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8896C2942EBC35970010737D /* XCRemoteSwiftPackageReference "Moya" */,
+				8896C2A02EBC3BFB0010737D /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8896C1CE2EBB98320010737D /* Products */;
 			projectDirPath = "";
@@ -580,6 +596,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8896C2942EBC35970010737D /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+		8896C2A02EBC3BFB0010737D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8896C2952EBC35970010737D /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8896C2942EBC35970010737D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		8896C2972EBC35970010737D /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8896C2942EBC35970010737D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		8896C2A12EBC3BFB0010737D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8896C2A02EBC3BFB0010737D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8896C1C52EBB98320010737D /* Project object */;
 }
